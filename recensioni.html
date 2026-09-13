@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Recensioni | Valeria Cosenza</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { gold: { light: '#f3e7c4', DEFAULT: '#d4af37', dark: '#aa8c2c', glow: '#ffea88' } },
+                    fontFamily: { sans: ['Montserrat', 'sans-serif'], serif: ['Cormorant Garamond', 'serif'] }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body { background-color: #030303; color: #e5e5e5; font-family: 'Montserrat', sans-serif; overflow-x: hidden; position: relative; }
+        body::before { content: ''; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; box-shadow: inset 0 0 35px rgba(212, 175, 55, 0.22); pointer-events: none; z-index: -1; }
+        .gold-glow { text-shadow: 0 0 20px rgba(212, 175, 55, 0.6); }
+        .gold-border { border-color: rgba(212, 175, 55, 0.4); }
+        .glass-box { background: rgba(10, 10, 10, 0.75); backdrop-filter: blur(16px); border: 1px solid rgba(212, 175, 55, 0.25); box-shadow: 0 8px 32px 0 rgba(0,0,0,0.8); }
+        .btn-animated { transition: transform 0.2s ease; } .btn-animated:active { transform: scale(0.96); }
+    </style>
+</head>
+<body class="bg-[#030303] text-gray-200 antialiased selection:bg-gold selection:text-black">
+
+    <!-- Header Identico all'Index (con Panino) -->
+    <header class="sticky top-0 z-50 glass-box border-b gold-border">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between relative">
+            <a href="index.html" class="font-serif italic text-base sm:text-lg tracking-wider text-gold gold-glow font-normal flex items-center gap-2 btn-animated">
+                <span>🎤</span> Valeria Cosenza
+            </a>
+            <nav class="hidden md:flex space-x-5 text-xs uppercase tracking-widest text-gray-300">
+                <a href="index.html#biografia" class="nav-link hover:text-gold flex items-center gap-1"><span>🎤</span> Biografia</a>
+                <a href="index.html#didattica" class="nav-link hover:text-gold flex items-center gap-1"><span>🎤</span> Didattica</a>
+                <a href="index.html#galleria" class="nav-link hover:text-gold flex items-center gap-1"><span>🎤</span> Galleria</a>
+                <a href="index.html#collaborazioni" class="nav-link hover:text-gold flex items-center gap-1"><span>🎤</span> Collaborazioni</a>
+                <a href="index.html#media" class="nav-link hover:text-gold flex items-center gap-1"><span>🎤</span> Media</a>
+                <a href="#" class="nav-link hover:text-gold flex items-center gap-1 text-gold font-medium"><span>⭐</span> Recensioni</a>
+                <a href="index.html#contatti" class="nav-link hover:text-gold flex items-center gap-1"><span>🎤</span> Contatti</a>
+            </nav>
+            <button onclick="toggleMenu()" class="md:hidden p-2 text-gold focus:outline-none flex flex-col justify-center gap-1.5 w-10 h-10">
+                <span class="w-full h-0.5 bg-gold transition-all"></span>
+                <span class="w-full h-0.5 bg-gold transition-all"></span>
+                <span class="w-full h-0.5 bg-gold transition-all"></span>
+            </button>
+        </div>
+        <div id="mobileMenu" class="hidden absolute top-16 right-3 w-48 glass-box rounded-xl shadow-2xl md:hidden py-3 px-3 z-50 border gold-border/50">
+            <nav class="flex flex-col space-y-2 text-[11px] uppercase tracking-wider text-white text-right font-medium">
+                <a href="index.html#biografia" class="hover:text-gold py-1.5 border-b border-neutral-900 flex items-center justify-end gap-1.5">Biografia <span>🎤</span></a>
+                <a href="index.html#didattica" class="hover:text-gold py-1.5 border-b border-neutral-900 flex items-center justify-end gap-1.5">Didattica <span>🎤</span></a>
+                <a href="index.html#galleria" class="hover:text-gold py-1.5 border-b border-neutral-900 flex items-center justify-end gap-1.5">Galleria <span>🎤</span></a>
+                <a href="index.html#collaborazioni" class="hover:text-gold py-1.5 border-b border-neutral-900 flex items-center justify-end gap-1.5">Collaborazioni <span>🎤</span></a>
+                <a href="index.html#media" class="hover:text-gold py-1.5 border-b border-neutral-900 flex items-center justify-end gap-1.5">Media <span>🎤</span></a>
+                <a href="#" class="hover:text-gold py-1.5 border-b border-neutral-900 flex items-center justify-end gap-1.5 text-gold">Recensioni <span>⭐</span></a>
+                <a href="index.html#contatti" class="hover:text-gold py-1.5 flex items-center justify-end gap-1.5">Contatti <span>🎤</span></a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="py-14 sm:py-20 px-4 sm:px-6 max-w-5xl mx-auto min-h-screen">
+        <div class="text-center mb-10">
+            <h1 class="font-serif italic text-3xl sm:text-5xl text-white gold-glow">Tutte le Recensioni</h1>
+            <p class="text-gray-400 text-xs sm:text-sm mt-3">Leggi cosa dicono di me i miei allievi e chi ha assistito ai miei eventi live.</p>
+        </div>
+
+        <!-- Griglia di Tutte le Recensioni -->
+        <div id="tutte-recensioni-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <p id="loadingStatus" class="text-gold text-center col-span-full">Caricamento in corso...</p>
+        </div>
+
+        <div class="text-center mt-12">
+            <a href="index.html" class="text-[10px] sm:text-xs uppercase tracking-widest px-6 py-3 border gold-border text-gold bg-black/40 hover:bg-gold hover:text-black transition duration-300 font-medium rounded-lg inline-block btn-animated">
+                ⬅ Torna alla Home
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer base per pagina secondaria -->
+    <footer class="border-t gold-border bg-black py-8 px-4 text-center text-xs text-gray-400">
+        &copy; 2026 Valeria Cosenza. Tutti i diritti riservati.
+    </footer>
+
+    <script>
+        function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('hidden'); }
+
+        async function caricaTutteLeRecensioni() {
+            const grid = document.getElementById("tutte-recensioni-grid");
+            const status = document.getElementById("loadingStatus");
+            const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw1nVYm4hDgx5l7uiudZZxA-0sGM6sjDUXbb6C9cCRB4JoeplnJZHTeOg2y-npuRF4h/exec";
+
+            try {
+                const response = await fetch(SCRIPT_URL);
+                const data = await response.json();
+                status.style.display = 'none';
+
+                if (data && data.length > 0) {
+                    grid.innerHTML = "";
+                    data.reverse().forEach(rec => {
+                        const numStelle = parseInt(rec.voto) || 5;
+                        const card = document.createElement("div");
+                        card.className = "glass-box p-6 rounded-xl border gold-border flex flex-col justify-between shadow-xl";
+                        card.innerHTML = `
+                            <div>
+                                <h3 class="font-serif italic text-lg text-white font-semibold">${rec.nome}</h3>
+                                <p class="text-gold my-1 text-sm">${"⭐".repeat(numStelle)}</p>
+                                <p class="text-gray-300 font-light italic text-xs sm:text-sm mt-3 leading-relaxed">"${rec.messaggio}"</p>
+                            </div>
+                        `;
+                        grid.appendChild(card);
+                    });
+                } else {
+                    grid.innerHTML = `<p class="text-gray-400 text-center col-span-full">Ancora nessuna recensione.</p>`;
+                }
+            } catch (err) {
+                status.textContent = "Errore durante il caricamento delle recensioni.";
+            }
+        }
+        caricaTutteLeRecensioni();
+    </script>
+</body>
+</html>

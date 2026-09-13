@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Valeria Cosenza | Official Artist</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            light: '#f3e7c4',
+                            DEFAULT: '#d4af37',
+                            dark: '#aa8c2c',
+                            glow: '#ffea88'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['Cormorant Garamond', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #030303;
+            color: #e5e5e5;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Alone di luce dorata responsive */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            box-shadow: inset 0 0 35px rgba(212, 175, 55, 0.22), inset 0 0 70px rgba(212, 175, 55, 0.08);
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        /* --- STELLE CADENTI DINAMICHE ANIMATE --- */
+        .shooting-star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 0 8px 2px #d4af37;
+            animation: fall linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-50px) translateX(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) translateX(-100px);
+                opacity: 0;
+            }
+        }
+
+        .gold-glow { text-shadow: 0 0 20px rgba(212, 175, 55, 0.6); }
+        .gold-border { border-color: rgba(212, 175, 55, 0.4); }
+        
+        .gold-border-fluo {
+            border: 2px solid #ffea88;
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.85), inset 0 0 15px rgba(255, 234, 136, 0.35);
+        }
+
+        /* Effetto Glossy / Vetro (Glassmorphism) */
+        .glass-box {
+            background: rgba(10, 10, 10, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(212, 175, 55, 0.05);
+        }
+
+        /* Animazioni pulsanti e interazioni touch */
+        .btn-animated {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-animated:active {
+            transform: scale(0.96);
+        }
+
+        /* Transizione comparsa allo scroll (Fade-in) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Rimuove il pulsante di schermo intero da tutti i video della pagina */
+        video::-webkit-media-controls-fullscreen-button {
+            display: none !important;
+        }
+
+        /* Galleria Foto Carosello Infinito */
+        .infinite-gallery {
+            display: flex;
+            gap: 0.75rem;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding: 0.75rem 1rem;
+        }
+        .infinite-gallery::-webkit-scrollbar {
+            display: none;
+        }
+        .infinite-item {
+            flex-shrink: 0;
+            width: 130px;
+            height: 130px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .infinite-item:hover {
+            transform: scale(1.03);
+        }
+        @media (min-width: 768px) {
+            .infinite-item {
+                width: 220px;
+                height: 220px;
+            }
+        }
+
+        /* Galleria Video Mobile */
+        .touch-video-gallery {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding: 0.5rem 1rem;
+        }
+        .touch-video-gallery::-webkit-scrollbar {
+            display: none;
+        }
+        .touch-video-item {
+            scroll-snap-align: center;
+            flex-shrink: 0;
+            width: 180px;
+        }
+        @media (min-width: 768px) {
+            .touch-video-item {
+                width: 240px;
+            }
+        }
+
+        /* Menu a tendina panino stretto */
+        #mobileMenu {
+            transition: all 0.25s ease-in-out;
+            transform-origin: top right;
+        }
+
+        .scrollbar-none::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-none {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-[#030303] text-gray-200 antialiased relative selection:bg-gold selection:text-black">
+
+    <!-- Sfondo con Stelle Cadenti Dinamiche -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-60">
+        <div class="shooting-star" style="top: 5%; left: 20%; animation-duration: 4s; animation-delay: 0s;"></div>
+        <div class="shooting-star" style="top: 15%; left: 70%; animation-duration: 6s; animation-delay: 2s;"></div>
+        <div class="shooting-star" style="top: 30%; left: 40%; animation-duration: 5s; animation-delay: 1s;"></div>
+        <div class="shooting-star" style="top: 50%; left: 85%; animation-duration: 7s; animation-delay: 3s;"></div>
+        <div class="shooting-star" style="top: 70%; left: 15%; animation-duration: 4.5s; animation-delay: 2.5s;"></div>
+        <div class="shooting-star" style="top: 85%; left: 60%; animation-duration: 5.5s; animation-delay: 0.5s;"></div>
+    </div>
+
+    <!-- Header Glassmorphism con Menu Panino Stretto -->
+    <header class="sticky top-0 z-50 glass-box border-b gold-border">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between relative">
+            <a href="#" class="font-serif italic text-base sm:text-lg tracking-wider text-gold gold-glow font-normal flex items-center gap-2 btn-animated">
+                <span>🎤</span> Valeria Cosenza
+            </a>
+            
+            <!-- Navbar Desktop -->
+            <nav class="hidden md:flex space-x-5 text-xs uppercase tracking-widest text-gray-300">
+                <a href="#biografia" class="nav-link hover:text-gold flex items-center gap-1"><span>🎤</span> Biografia</a>
+                <a href="#didattica" class="nav-link hover:text-gold flex items-center gap-1"><span>🎤</span> Didattica</a>
+                <a href="#galleria" class="nav-link hover:text-gold flex items-center gap-1"><span>🎤</span> Galleria</a>
+                <a href="#collaborazioni" class="nav-link hover:text-gold flex items-center gap-1"><span>🎤</span> Collaborazioni</a>
+                <a href="#media" class="nav-link hover:text-gold flex items-center gap-1"><span>🎤</span> Media</a>
+                <a href="recensioni.html" class="nav-link hover:text-gold flex items-center gap-1 text-gold font-medium"><span>⭐</span> Recensioni</a>
+                <a href="#contatti" class="nav-link hover:text-gold flex items-center gap-1"><span>🎤</span> Contatti</a>
+            </nav>
+
+            <!-- Pulsante Panino (Hamburger) Mobile -->
+            <button id="menuBtn" onclick="toggleMenu()" class="md:hidden p-2 text-gold focus:outline-none flex flex-col justify-center gap-1.5 w-9 h-9">
+                <span id="line1" class="w-full h-0.5 bg-gold transition-all duration-300 origin-center"></span>
+                <span id="line2" class="w-full h-0.5 bg-gold transition-all duration-300"></span>
+                <span id="line3" class="w-full h-0.5 bg-gold transition-all duration-300 origin-center"></span>
+            </button>
+        </div>
+
+        <!-- Menu a tendina panino stretto e compatto con effetto Glossy -->
+        <div id="mobileMenu" class="hidden absolute top-16 right-3 w-44 glass-box rounded-xl shadow-2xl md:hidden py-3 px-3 z-50">
+            <nav class="flex flex-col space-y-2 text-[10px] uppercase tracking-wider text-white text-right font-medium">
+                <a href="#biografia" onclick="toggleMenu()" class="hover:text-gold py-1 border-b border-neutral-900 flex items-center justify-end gap-1">Biografia <span>🎤</span></a>
+                <a href="#didattica" onclick="toggleMenu()" class="hover:text-gold py-1 border-b border-neutral-900 flex items-center justify-end gap-1">Didattica <span>🎤</span></a>
+                <a href="#galleria" onclick="toggleMenu()" class="hover:text-gold py-1 border-b border-neutral-900 flex items-center justify-end gap-1">Galleria <span>🎤</span></a>
+                <a href="#collaborazioni" onclick="toggleMenu()" class="hover:text-gold py-1 border-b border-neutral-900 flex items-center justify-end gap-1">Collaborazioni <span>🎤</span></a>
+                <a href="#media" onclick="toggleMenu()" class="hover:text-gold py-1 border-b border-neutral-900 flex items-center justify-end gap-1">Media <span>🎤</span></a>
+                <a href="recensioni.html" onclick="toggleMenu()" class="hover:text-gold py-1 border-b border-neutral-900 flex items-center justify-end gap-1 text-gold">Recensioni <span>⭐</span></a>
+                <a href="#contatti" onclick="toggleMenu()" class="hover:text-gold py-1 flex items-center justify-end gap-1">Contatti <span>🎤</span></a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="relative z-10">
+
+        <!-- Sezione Hero -->
+        <section class="relative min-h-[80vh] flex items-center justify-center px-4 sm:px-6 py-20 overflow-hidden border-b gold-border/30 reveal">
+            <div class="absolute inset-0 z-0">
+                <img src="foto/foto2.jpeg" alt="Valeria Cosenza Hero Background" class="w-full h-full object-cover object-center filter brightness-50 contrast-110 scale-105">
+                <div class="absolute inset-0 bg-gradient-to-b from-[#030303]/65 via-[#030303]/85 to-[#030303]"></div>
+            </div>
+
+            <div class="relative z-10 text-center max-w-3xl mx-auto space-y-5 px-2">
+                <span class="text-[10px] sm:text-xs uppercase tracking-[0.4em] text-gold font-medium">Official Artist & Performer</span>
+                <h1 class="font-serif italic text-4xl sm:text-6xl md:text-7xl text-white tracking-wide gold-glow font-normal">
+                    Valeria Cosenza
+                </h1>
+                <p class="text-gray-300 font-light text-sm sm:text-base md:text-xl tracking-wide max-w-xl mx-auto font-serif italic">
+                    "L'essenza della voce, del teatro e della grande musica live"
+                </p>
+                <div class="pt-4 flex flex-col sm:flex-row justify-center gap-3">
+                    <a href="#biografia" class="text-[10px] sm:text-xs uppercase tracking-widest px-4 py-2 sm:px-6 sm:py-3 border gold-border text-gold bg-black/40 hover:bg-gold hover:text-black transition duration-300 font-medium btn-animated">Scopri l'artista</a>
+                    <a href="#galleria" class="text-[10px] sm:text-xs uppercase tracking-widest px-4 py-2 sm:px-6 sm:py-3 bg-neutral-900/80 text-gray-300 border border-neutral-800 hover:border-gold transition duration-300 font-medium btn-animated">Guarda la galleria</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sezione Biografia con stile Glossy -->
+        <section id="biografia" class="py-14 sm:py-20 px-4 sm:px-6 max-w-6xl mx-auto reveal">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
+                
+                <!-- Foto quadrata -->
+                <div class="md:col-span-5 pt-2 max-w-[220px] sm:max-w-xs md:max-w-none mx-auto w-full">
+                    <div class="relative aspect-square overflow-hidden rounded-2xl gold-border-fluo bg-neutral-900 shadow-2xl">
+                        <img src="foto/foto1.jpeg" alt="Valeria Cosenza" class="w-full h-full object-cover filter brightness-110 contrast-110">
+                    </div>
+                </div>
+
+                <!-- Testo Biografia Glossy -->
+                <div class="md:col-span-7 p-5 sm:p-8 md:p-10 glass-box rounded-xl relative shadow-xl">
+                    <div class="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-gold"></div>
+                    <div class="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-gold"></div>
+                    <div class="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-gold"></div>
+                    <div class="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-gold"></div>
+
+                    <div class="space-y-3 sm:space-y-4">
+                        <span class="text-[9px] sm:text-[11px] uppercase tracking-[0.3em] text-gold font-medium">Biografia Ufficiale</span>
+                        <h2 class="font-serif italic text-xl sm:text-3xl md:text-4xl text-white tracking-wide">
+                            Un percorso tra palchi, teatri e grandi collaborazioni
+                        </h2>
+                        <p class="text-gray-300 font-light leading-relaxed text-[11px] sm:text-sm md:text-base">
+                            Con un percorso artistico iniziato all'età di diciassette anni accanto a un'orchestra di musica da ballo — fondamentale per apprendere l'interazione con il pubblico e la padronanza del palco —, Valeria Cosenza vanta una solida e versatile carriera come cantante di piano bar e vocalist. La sua formazione spazia dal teatro alla televisione, dove ha lavorato a lungo come corista per grandi produzioni e prestigiosi artisti del panorama nazionale e internazionale, tra cui Alexia, Paola e Chiara, Biagio Antonacci, Sister Sledge, Lionel Richie e Renato Zero.
+                        </p>
+                        <p class="text-gray-300 font-light leading-relaxed text-[11px] sm:text-sm md:text-base">
+                            Nel corso degli anni ha dato vita a diversi progetti musicali personali, dai Forever Eighty (repertorio acid jazz e funky) a "Valeria e le Acustiche Presenze" (quartetto acustico italiano). Tra le esperienze televisive più significative spiccano i tre anni consecutivi come corista a <em>Io Canto</em> su Canale 5, sotto la direzione del Maestro Luca Pitteri, accompagnando ospiti d'eccezione come Spagna, Al Bano e Michael Bublé. Attualmente è la voce solista in una band tributo a Zucchero — ereditando il ruolo originariamente ricoperto da Lisa Hunt — e milita contemporaneamente in un progetto dedicato alle sonorità revival anni '60, '70 e '80.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Sezione Didattica & Lezioni con Pulsante Contatta -->
+        <section id="didattica" class="py-14 sm:py-20 px-4 sm:px-6 max-w-7xl mx-auto border-t gold-border/40 reveal">
+            <div class="text-center mb-8 sm:mb-12">
+                <span class="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-gold font-medium">Percorsi Formativi & Vocal Coaching</span>
+                <h2 class="font-serif italic text-2xl sm:text-3xl md:text-4xl text-white mt-1">Didattica & Lezioni di Canto</h2>
+                <p class="text-gray-300 font-light leading-relaxed text-xs sm:text-sm md:text-base max-w-2xl mx-auto mt-3">
+                    Oltre alla carriera concertistica e di performer, dedico grande passione all'insegnamento del canto e della tecnica vocale. Attraverso un approccio personalizzato, guido allievi di ogni livello nella scoperta e nel potenziamento della propria voce.
+                </p>
+                <div class="mt-5">
+                    <a href="#contatti" class="text-[10px] sm:text-xs uppercase tracking-widest px-6 py-2.5 sm:px-8 sm:py-3 border gold-border text-gold bg-black/40 hover:bg-gold hover:text-black transition duration-300 font-medium inline-block btn-animated">
+                        Contatta
+                    </a>
+                </div>
+            </div>
+
+            <div class="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-5 overflow-x-auto snap-x snap-mandatory pb-4 pt-2 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-none">
+                <!-- Card 1 -->
+                <div class="snap-center flex-shrink-0 w-[295px] sm:w-[330px] md:w-auto glass-box rounded-xl p-6 border gold-border relative flex flex-col justify-between shadow-xl">
+                    <div>
+                        <div class="flex items-center justify-between mb-3 border-b gold-border/30 pb-2">
+                            <span class="text-gold font-serif italic text-xl font-bold">01</span>
+                            <span class="text-[10px] sm:text-[11px] uppercase tracking-widest bg-gold/10 text-gold px-2.5 py-1 rounded border gold-border/30 font-medium">Fisiologia</span>
+                        </div>
+                        <h3 class="font-serif italic text-xl text-white mb-3.5">Tecnica Vocale & Fisiologia</h3>
+                        <ul class="space-y-3 text-xs sm:text-sm text-gray-300 font-light leading-relaxed">
+                            <li class="flex items-start gap-2"><span class="text-gold">•</span> <span><strong>Respirazione diaframmatica:</strong> Gestione del fiato, appoggio e sostegno per cantare senza sforzo.</span></li>
+                            <li class="flex items-start gap-2"><span class="text-gold">•</span> <span><strong>Postura corporea:</strong> Allineamento per favorire la massima apertura e risonanza.</span></li>
+                            <li class="flex items-start gap-2"><span class="text-gold">•</span> <span><strong>Intonazione ed estensione:</strong> Vocalizzi mirati per ampliare la gamma di note.</span></li>
+                            <li class="flex items-start gap-2"><span class="text-gold">•</span> <span><strong>Registri vocali:</strong> Passaggio tra voce di petto, di testa, falsetto e mix (belting).</span></li>
+                            <li class="flex items-start gap-2"><span class="text-gold">•</span> <span><strong>Agilità e controllo:</strong> Scale, arpeggi e abbellimenti per una voce flessibile.</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="snap-center flex-shrink-0 w-[295px] sm:w-[330px] md:w-auto glass-box rounded-xl p-6 border gold-border relative flex flex-col justify-between shadow-xl">
+                    <div>
+                        <div class="flex items-center justify-between mb-3 border-b gold-border/30 pb-2">
+                            <span class="text-gold font-serif italic text-xl font-bold">02</span>
+                            <span class="text-[10px] sm:text-[11px] uppercase tracking-widest bg-gold/10 text-gold px-2.5 py-1 rounded border gold-border/30 font-medium">Salute Vocale</span>
+                        </div>
+                        <h3 class="font-serif italic text-xl text-white mb-3.5">Igiene & Salute Vocale</h3>
+                        <ul class="space-y-3 text-xs sm:text-sm text-gray-300 font-light leading-relaxed">
+                            <li class="flex items-start gap-2"><span class="text-gold">•</span> <span><strong>Riscaldamento (Warm-up):</strong> Esercizi mirati (Lip trill, SOVTE) per preparare la voce.</span></li>
+                            <li class="flex items-start gap-2"><span class="text-gold">•</span> <span><strong>Defaticamento (Cool-down):</strong> Esercizi per rilassare la laringe dopo la performance.</span></li>
+                            <li class="flex items-start gap-2"><span class="text-gold">•</span> <span><strong>Prevenzione della fatica:</strong> Consigli per evitare noduli, raucedine e infiammazioni.</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="snap-center flex-shrink-0 w-[295px] sm:w-[330px] md:w-auto glass-box rounded-xl p-6 border gold-border relative flex flex-col justify-between shadow-xl">
+                    <div>
+                        <div class="flex items-center justify-between mb-3 border-b gold-border/30 pb-2">
+                            <span class="text-gold font-serif italic text-xl font-bold">03</span>
+                            <span class="text-[10px] sm:text-[11px] uppercase tracking-widest bg-gold/10 text-gold px-2.5 py-1 rounded border gold-border/30 font-medium">Espressione</span>
+                        </div>
+                        <h3 class="font-serif italic text-xl text-white mb-3.5">Interpretazione Artistica</h3>
+                        <ul class="space-y-3 text-xs sm:text-sm text-gray-300 font-light leading-relaxed">
+                            <li class="flex items-start gap-2"><span class="text-gold">•</span> <span><strong>Dizione e articolazione:</strong> Pronuncia corretta e gestione vocale delle vocali.</span></li>
+                            <li class="flex items-start gap-2"><span class="text-gold">•</span> <span><strong>Fraseggio e dinamiche:</strong> Controllo del volume (piano, forte) ed intenzione emotiva.</span></li>
+                            <li class="flex items-start gap-2"><span class="text-gold">•</span> <span><strong>Analisi del testo:</strong> Comprensione profonda per interpretare in modo autentico.</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="snap-center flex-shrink-0 w-[295px] sm:w-[330px] md:w-auto glass-box rounded-xl p-6 border gold-border relative flex flex-col justify-between shadow-xl">
+                    <div>
+                        <div class="flex items-center justify-between mb-3 border-b gold-border/30 pb-2">
+                            <span class="text-gold font-serif italic text-xl font-bold">04</span>
+                            <span class="text-[10px] sm:text-[11px] uppercase tracking-widest bg-gold/10 text-gold px-2.5 py-1 rounded border gold-border/30 font-medium">Performance</span>
+                        </div>
+                        <h3 class="font-serif italic text-xl text-white mb-3.5">Presenza Scenica & Live</h3>
+                        <ul class="space-y-3 text-xs sm:text-sm text-gray-300 font-light leading-relaxed">
+                            <li class="flex items-start gap-2"><span class="text-gold">•</span> <span><strong>Presenza scenica e gestione del microfono:</strong> Come muoversi sul palco e come usare la distanza dal microfono per controllare il suono.</span></li>
+                            <li class="flex items-start gap-2"><span class="text-gold">•</span> <span><strong>Gestione dell'emotività:</strong> Tecniche pratiche per superare la tensione e trasformare la timidezza in carica interpretativa.</span></li>
+                            <li class="flex items-start gap-2"><span class="text-gold">•</span> <span><strong>Espressività corporea:</strong> Comunicazione non verbale e contatto visivo per coinvolgere direttamente il pubblico.</span></li>
+                            <li class="flex items-start gap-2"><span class="text-gold">•</span> <span><strong>Ascolto e monitoraggio live:</strong> Come gestire il proprio ascolto sul palco (spie/in-ear monitor) per un'esibizione sempre precisa.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sezione Galleria con Carosello Infinito e Lightbox -->
+        <section id="galleria" class="py-14 sm:py-20 px-0 overflow-hidden border-t gold-border/40 reveal">
+            <div class="text-center mb-6 sm:mb-10 px-6">
+                <span class="text-[10px] sm:text-[11px] uppercase tracking-[0.3em] text-gold font-medium">Portfolio</span>
+                <h2 class="font-serif italic text-2xl md:text-3xl text-white mt-1">Galleria Fotografica</h2>
+                <p class="text-[10px] text-gray-400 mt-1">Tocca una foto per ingrandirla a schermo intero 🔍</p>
+            </div>
+
+            <div class="infinite-gallery" id="infiniteGallery">
+                <div class="infinite-item border gold-border rounded-xl overflow-hidden glass-box" onclick="openLightbox('foto/foto1.jpeg')"><img src="foto/foto1.jpeg" alt="Foto 1" class="w-full h-full object-cover"></div>
+                <div class="infinite-item border gold-border rounded-xl overflow-hidden glass-box" onclick="openLightbox('foto/foto5.jpeg')"><img src="foto/foto5.jpeg" alt="Foto 5" class="w-full h-full object-cover"></div>
+                <div class="infinite-item border gold-border rounded-xl overflow-hidden glass-box" onclick="openLightbox('foto/foto13.jpeg')"><img src="foto/foto13.jpeg" alt="Foto 13" class="w-full h-full object-cover"></div>
+                <div class="infinite-item border gold-border rounded-xl overflow-hidden glass-box" onclick="openLightbox('foto/foto2.jpeg')"><img src="foto/foto2.jpeg" alt="Foto 2" class="w-full h-full object-cover"></div>
+                <div class="infinite-item border gold-border rounded-xl overflow-hidden glass-box" onclick="openLightbox('foto/foto6.jpeg')"><img src="foto/foto6.jpeg" alt="Foto 6" class="w-full h-full object-cover"></div>
+                <div class="infinite-item border gold-border rounded-xl overflow-hidden glass-box" onclick="openLightbox('foto/foto14.jpeg')"><img src="foto/foto14.jpeg" alt="Foto 14" class="w-full h-full object-cover"></div>
+                <div class="infinite-item border gold-border rounded-xl overflow-hidden glass-box" onclick="openLightbox('foto/foto7.jpeg')"><img src="foto/foto7.jpeg" alt="Foto 7" class="w-full h-full object-cover"></div>
+                <div class="infinite-item border gold-border rounded-xl overflow-hidden glass-box" onclick="openLightbox('foto/foto8.jpeg')"><img src="foto/foto8.jpeg" alt="Foto 8" class="w-full h-full object-cover"></div>
+                <div class="infinite-item border gold-border rounded-xl overflow-hidden glass-box" onclick="openLightbox('foto/foto15.jpeg')"><img src="foto/foto15.jpeg" alt="Foto 15" class="w-full h-full object-cover"></div>
+                <div class="infinite-item border gold-border rounded-xl overflow-hidden glass-box" onclick="openLightbox('foto/foto9.jpeg')"><img src="foto/foto9.jpeg" alt="Foto 9" class="w-full h-full object-cover"></div>
+                <div class="infinite-item border gold-border rounded-xl overflow-hidden glass-box" onclick="openLightbox('foto/foto10.jpeg')"><img src="foto/foto10.jpeg" alt="Foto 10" class="w-full h-full object-cover"></div>
+                <div class="infinite-item border gold-border rounded-xl overflow-hidden glass-box" onclick="openLightbox('foto/foto11.jpeg')"><img src="foto/foto11.jpeg" alt="Foto 11" class="w-full h-full object-cover"></div>
+                <div class="infinite-item border gold-border rounded-xl overflow-hidden glass-box" onclick="openLightbox('foto/foto12.jpeg')"><img src="foto/foto12.jpeg" alt="Foto 12" class="w-full h-full object-cover"></div>
+                <!-- Set duplicato -->
+                <div class="infinite-item border gold-border rounded-xl overflow-hidden glass-box" onclick="openLightbox('foto/foto1.jpeg')"><img src="foto/foto1.jpeg" alt="Foto 1" class="w-full h-full object-cover"></div>
+                <div class="infinite-item border gold-border rounded-xl overflow-hidden glass-box" onclick="openLightbox('foto/foto5.jpeg')"><img src="foto/foto5.jpeg" alt="Foto 5" class="w-full h-full object-cover"></div>
+                <div class="infinite-item border gold-border rounded-xl overflow-hidden glass-box" onclick="openLightbox('foto/foto13.jpeg')"><img src="foto/foto13.jpeg" alt="Foto 13" class="w-full h-full object-cover"></div>
+                <div class="infinite-item border gold-border rounded-xl overflow-hidden glass-box" onclick="openLightbox('foto/foto2.jpeg')"><img src="foto/foto2.jpeg" alt="Foto 2" class="w-full h-full object-cover"></div>
+                <div class="infinite-item border gold-border rounded-xl overflow-hidden glass-box" onclick="openLightbox('foto/foto6.jpeg')"><img src="foto/foto6.jpeg" alt="Foto 6" class="w-full h-full object-cover"></div>
+                <div class="infinite-item border gold-border rounded-xl overflow-hidden glass-box" onclick="openLightbox('foto/foto14.jpeg')"><img src="foto/foto14.jpeg" alt="Foto 14" class="w-full h-full object-cover"></div>
+                <div class="infinite-item border gold-border rounded-xl overflow-hidden glass-box" onclick="openLightbox('foto/foto7.jpeg')"><img src="foto/foto7.jpeg" alt="Foto 7" class="w-full h-full object-cover"></div>
+                <div class="infinite-item border gold-border rounded-xl overflow-hidden glass-box" onclick="openLightbox('foto/foto8.jpeg')"><img src="foto/foto8.jpeg" alt="Foto 8" class="w-full h-full object-cover"></div>
+                <div class="infinite-item border gold-border rounded-xl overflow-hidden glass-box" onclick="openLightbox('foto/foto15.jpeg')"><img src="foto/foto15.jpeg" alt="Foto 15" class="w-full h-full object-cover"></div>
+                <div class="infinite-item border gold-border rounded-xl overflow-hidden glass-box" onclick="openLightbox('foto/foto9.jpeg')"><img src="foto/foto9.jpeg" alt="Foto 9" class="w-full h-full object-cover"></div>
+                <div class="infinite-item border gold-border rounded-xl overflow-hidden glass-box" onclick="openLightbox('foto/foto10.jpeg')"><img src="foto/foto10.jpeg" alt="Foto 10" class="w-full h-full object-cover"></div>
+                <div class="infinite-item border gold-border rounded-xl overflow-hidden glass-box" onclick="openLightbox('foto/foto11.jpeg')"><img src="foto/foto11.jpeg" alt="Foto 11" class="w-full h-full object-cover"></div>
+                <div class="infinite-item border gold-border rounded-xl overflow-hidden glass-box" onclick="openLightbox('foto/foto12.jpeg')"><img src="foto/foto12.jpeg" alt="Foto 12" class="w-full h-full object-cover"></div>
+            </div>
+        </section>
+
+        <!-- Sezione Collaborazioni -->
+        <section id="collaborazioni" class="py-14 sm:py-20 px-4 sm:px-6 max-w-6xl mx-auto border-t gold-border/40 reveal">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
+                <div class="md:col-span-7 p-5 sm:p-8 md:p-10 glass-box rounded-xl relative shadow-xl order-2 md:order-1">
+                    <div class="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-gold"></div>
+                    <div class="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-gold"></div>
+                    <div class="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-gold"></div>
+                    <div class="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-gold"></div>
+
+                    <div class="space-y-3 sm:space-y-4">
+                        <span class="text-[9px] sm:text-[11px] uppercase tracking-[0.3em] text-gold font-medium">Live Sets & Project Synergy</span>
+                        <h2 class="font-serif italic text-xl sm:text-3xl md:text-4xl text-white tracking-wide">
+                            Collaborazioni d'Autore e Sinergie Musicali
+                        </h2>
+                        <p class="text-gray-300 font-light leading-relaxed text-[11px] sm:text-sm md:text-base">
+                            La musica è condivisione, contaminazione e ricerca di nuove emozioni sonore. Oltre al percorso solista e ai progetti live principali, Valeria Cosenza promuove attivamente collaborazioni artistiche di alto profilo con musicisti, strumentisti e DJ, progettando performance uniche e su misura per ogni tipo di evento, locale o palco prestigioso.
+                        </p>
+                        <p class="text-gray-300 font-light leading-relaxed text-[11px] sm:text-sm md:text-base">
+                            Un esempio emblematico di questa sinergia è l'intesa artistica sul palco con la straordinaria violinista <strong>Eleonora Biasco</strong>: un connubio perfetto in cui la calda intensità della voce si fonde con la raffinatezza e la vibrante espressività del violino, dando vita a reinterpretazioni suggestive e cariche di pathos. Valeria è aperta a nuove collaborazioni con professionisti del settore per arricchire ogni performance con sonorità esclusive ed eleganti.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="md:col-span-5 pt-2 order-1 md:order-2 max-w-[220px] sm:max-w-xs md:max-w-none mx-auto w-full">
+                    <div class="relative aspect-square overflow-hidden rounded-2xl gold-border-fluo bg-neutral-900 shadow-2xl">
+                        <img src="foto/foto15.jpeg" alt="Valeria Cosenza e Eleonora Biasco" class="w-full h-full object-cover filter brightness-110 contrast-110">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sezione Media & Video -->
+        <section id="media" class="py-14 sm:py-20 px-0 sm:px-6 max-w-4xl mx-auto border-t gold-border/40 reveal">
+            <div class="text-center mb-6 sm:mb-12 px-4">
+                <span class="text-[10px] sm:text-[11px] uppercase tracking-[0.3em] text-gold font-medium">Performance & Live</span>
+                <h2 class="font-serif italic text-2xl sm:text-3xl md:text-4xl text-white mt-1">Media & Video</h2>
+                <p class="text-gray-400 font-light text-[11px] sm:text-sm max-w-xl mx-auto mt-2">
+                    Momenti unici catturati sul palco: scorri per vedere i video live.
+                </p>
+            </div>
+
+            <div class="touch-video-gallery md:grid md:grid-cols-2 md:gap-6 md:max-w-xl md:mx-auto md:justify-items-center">
+                <!-- Video 1 -->
+                <div class="touch-video-item relative border gold-border rounded-xl glass-box p-2 shadow-xl">
+                    <div class="absolute -top-3 left-3 bg-black px-2 text-[8px] uppercase tracking-widest text-gold font-medium border gold-border rounded-full z-20">
+                        Video 01
+                    </div>
+                    <div class="aspect-[9/16] w-full overflow-hidden rounded-lg bg-black mt-1 relative">
+                        <video controls playsinline preload="metadata" class="w-full h-full object-cover">
+                            <source src="video/video1.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <button onclick="openVideoPopup('video/video1.mp4')" class="mt-2 w-full py-1.5 bg-neutral-900 hover:bg-gold hover:text-black text-gold border gold-border text-[9px] uppercase tracking-wider rounded-md transition duration-300 font-medium flex items-center justify-center gap-1 btn-animated">
+                        🔍 Ingrandisci
+                    </button>
+                </div>
+
+                <!-- Video 2 -->
+                <div class="touch-video-item relative border gold-border rounded-xl glass-box p-2 shadow-xl">
+                    <div class="absolute -top-3 left-3 bg-black px-2 text-[8px] uppercase tracking-widest text-gold font-medium border gold-border rounded-full z-20">
+                        Video 02
+                    </div>
+                    <div class="aspect-[9/16] w-full overflow-hidden rounded-lg bg-black mt-1 relative">
+                        <video controls playsinline preload="metadata" class="w-full h-full object-cover">
+                            <source src="video/video2.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <button onclick="openVideoPopup('video/video2.mp4')" class="mt-2 w-full py-1.5 bg-neutral-900 hover:bg-gold hover:text-black text-gold border gold-border text-[9px] uppercase tracking-wider rounded-md transition duration-300 font-medium flex items-center justify-center gap-1 btn-animated">
+                        🔍 Ingrandisci
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sezione Recensioni su Index (Ultime 3 + Due Pulsanti) -->
+        <section id="recensioni" class="py-14 sm:py-20 px-4 sm:px-6 max-w-6xl mx-auto border-t gold-border/40 reveal">
+            <div class="text-center mb-8 sm:mb-12">
+                <span class="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-gold font-medium">Feedback & Opinioni</span>
+                <h2 class="font-serif italic text-2xl sm:text-3xl md:text-4xl text-white mt-1">Dicono di Me</h2>
+                <p class="text-gray-300 font-light text-xs sm:text-sm max-w-xl mx-auto mt-2">
+                    Alcuni pensieri recenti di chi ha condiviso un evento o seguito la didattica.
+                </p>
+            </div>
+
+            <!-- Griglia delle ultime 3 recensioni -->
+            <div id="anteprima-recensioni-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                <p class="text-gray-400 text-center col-span-full">Caricamento recensioni...</p>
+            </div>
+
+            <!-- Due pulsanti vicini -->
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                <button onclick="openReviewModal()" class="text-[10px] sm:text-xs uppercase tracking-widest px-6 py-3 bg-gold text-black font-semibold rounded-lg hover:bg-gold-light transition duration-300 btn-animated shadow-lg">
+                    ✏️ Scrivi Recensione
+                </button>
+                <a href="recensioni.html" class="text-[10px] sm:text-xs uppercase tracking-widest px-6 py-3 border gold-border text-gold bg-black/40 hover:bg-gold hover:text-black transition duration-300 font-medium inline-block btn-animated">
+                    📖 Visualizza tutte le recensioni
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODALE / POP-UP PER SCRIVERE LA RECENSIONE SU INDEX -->
+    <div id="reviewModal" class="fixed inset-0 z-[99999] bg-black/90 backdrop-blur-md hidden items-center justify-center p-4">
+        <div class="relative w-full max-w-lg glass-box border-2 gold-border rounded-2xl p-6 sm:p-8 shadow-2xl">
+            <button onclick="closeReviewModal()" class="absolute top-3 right-3 bg-gold text-black px-3 py-1 rounded-full font-bold text-xs shadow-lg z-50 btn-animated">
+                ✕ Chiudi
+            </button>
+            <h3 class="font-serif italic text-2xl text-gold mb-6 text-center">Lascia una Recensione</h3>
+            <form id="reviewFormModal" class="space-y-4">
+                <div>
+                    <label for="nomeModal" class="block text-xs uppercase tracking-wider text-gold mb-1 font-medium">Il tuo Nome / Evento</label>
+                    <input type="text" id="nomeModal" required placeholder="Es. Marco & Sara (Matrimonio)" class="w-full p-3 bg-black/80 border gold-border/50 text-white rounded-lg focus:outline-none focus:border-gold text-sm font-light">
+                </div>
+                <div>
+                    <label for="votoModal" class="block text-xs uppercase tracking-wider text-gold mb-1 font-medium">Voto (da 1 a 5 stelle)</label>
+                    <select id="votoModal" required class="w-full p-3 bg-black/80 border gold-border/50 text-white rounded-lg focus:outline-none focus:border-gold text-sm font-light">
+                        <option value="5">⭐⭐⭐⭐⭐ (5/5 - Eccellente)</option>
+                        <option value="4">⭐⭐⭐⭐ (4/5 - Ottimo)</option>
+                        <option value="3">⭐⭐⭐ (3/5 - Buono)</option>
+                        <option value="2">⭐⭐ (2/5 - Sufficiente)</option>
+                        <option value="1">⭐ (1/5 - Da migliorare)</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="messaggioModal" class="block text-xs uppercase tracking-wider text-gold mb-1 font-medium">La tua Recensione</label>
+                    <textarea id="messaggioModal" required rows="4" placeholder="Racconta la tua esperienza..." class="w-full p-3 bg-black/80 border gold-border/50 text-white rounded-lg focus:outline-none focus:border-gold text-sm font-light"></textarea>
+                </div>
+                <button type="submit" class="w-full py-3 bg-gold text-black font-semibold uppercase tracking-widest text-xs rounded-lg hover:bg-gold-light transition duration-300 btn-animated shadow-lg">
+                    Invia Recensione
+                </button>
+            </form>
+            <p id="formStatusModal" class="text-center mt-4 text-gold text-xs font-medium hidden"></p>
+        </div>
+    </div>
+
+    <!-- Modal Pop-up Video (Reel centrato ingrandito e senza pulsante fullscreen) -->
+    <div id="videoModal" class="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-md hidden items-center justify-center p-4">
+        <div class="relative w-full max-w-[320px] sm:max-w-[380px] glass-box border-2 gold-border rounded-2xl p-3 shadow-2xl">
+            <button onclick="closeVideoPopup()" class="absolute top-2 right-2 bg-gold text-black px-3 py-1 rounded-full font-bold text-xs flex items-center gap-1 shadow-lg z-50 btn-animated">
+                ✕ Chiudi
+            </button>
+            <div class="aspect-[9/16] w-full overflow-hidden rounded-xl bg-black mt-6">
+                <video id="modalVideo" controls playsinline autoplay class="w-full h-full object-cover">
+                    <source src="" type="video/mp4">
+                </video>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox per Immagini Galleria -->
+    <div id="lightboxModal" class="fixed inset-0 z-[9999] bg-black/95 backdrop-blur-lg hidden items-center justify-center p-3" onclick="closeLightbox()">
+        <div class="relative max-w-xl max-h-[90vh] w-full flex items-center justify-center" onclick="event.stopPropagation()">
+            <button onclick="closeLightbox()" class="absolute -top-10 right-0 bg-gold text-black px-3 py-1 rounded-full font-bold text-xs shadow-lg z-50">✕ Chiudi</button>
+            <img id="lightboxImg" src="" alt="Zoom Foto" class="max-h-[85vh] max-w-full object-contain rounded-xl border-2 gold-border shadow-2xl">
+        </div>
+    </div>
+
+    <!-- Pulsante WhatsApp Fluttuante -->
+    <a href="https://wa.me/393466614990?text=Salve,%20vorrei%20informazioni%20per%20un%20booking%20artistico%20live." target="_blank" class="fixed bottom-3 right-3 z-45 bg-[#25D366] text-white p-2.5 sm:p-3 rounded-full shadow-2xl hover:scale-110 transition duration-300 flex items-center justify-center border border-white/20">
+        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.124-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+    </a>
+
+    <!-- Footer a 3 colonne definitivo -->
+    <footer id="contatti" class="border-t gold-border bg-black py-12 px-4 sm:px-6 mt-20 reveal">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-xs text-gray-300">
+            
+            <!-- Colonna Sinistra: Instagram, Facebook e Jesolo (VE) -->
+            <div class="space-y-2 text-left">
+                <h3 class="font-serif italic text-sm text-gold font-bold mb-2">Social & Info</h3>
+                <p>
+                    <a href="https://www.instagram.com/cosenza.valeria" target="_blank" class="hover:text-gold transition-colors inline-flex items-center gap-1.5">
+                        <svg class="w-4 h-4 text-gold fill-current flex-shrink-0" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        cosenza.valeria
+                    </a>
+                </p>
+                <p>
+                    <a href="https://www.facebook.com/share/1ECM5kUxyL/" target="_blank" class="hover:text-gold transition-colors inline-flex items-center gap-1.5">
+                        <svg class="w-4 h-4 text-gold fill-current flex-shrink-0" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>
+                        Valeria Cosenza
+                    </a>
+                </p>
+                <p class="text-gray-400 font-medium pt-1">Jesolo (VE)</p>
+            </div>
+
+            <!-- Colonna Centrale: Privacy -->
+            <div class="space-y-2 text-center md:text-center">
+                <h3 class="font-serif italic text-sm text-gold font-bold mb-2">Privacy</h3>
+                <p><a href="note-legali.html" class="hover:text-gold transition-colors underline">Note Legali</a></p>
+                <p><a href="privacy.html" class="hover:text-gold transition-colors underline">Privacy Policy</a></p>
+                <div class="pt-2 text-[10px] text-gray-400">
+                    &copy; 2026 Valeria Cosenza.
+                </div>
+            </div>
+
+            <!-- Colonna Destra: Contatti (Email e WhatsApp) -->
+            <div class="space-y-2 text-left md:text-right text-white">
+                <h3 class="font-serif italic text-sm text-gold font-bold mb-2">Contatti</h3>
+                <p class="truncate"><strong>Email:</strong> <a href="mailto:valeriacosenza@yahoo.it" class="text-white hover:text-gold transition-colors">valeriacosenza@yahoo.it</a></p>
+                <p>
+                    <a href="https://wa.me/393466614990" target="_blank" class="text-white hover:text-gold transition-colors font-mono inline-flex items-center md:justify-end gap-1.5 w-full">
+                        <svg class="w-4 h-4 fill-[#25D366] flex-shrink-0" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.124-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                        +39 346 6614990
+                    </a>
+                </p>
+                <p>
+                    <a href="https://wa.me/393385414610" target="_blank" class="text-white hover:text-gold transition-colors font-mono inline-flex items-center md:justify-end gap-1.5 w-full">
+                        <svg class="w-4 h-4 fill-[#25D366] flex-shrink-0" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.124-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                        +39 338 5414610
+                    </a>
+                </p>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- Script JavaScript -->
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        async function caricaAnteprimaHome() {
+            const grid = document.getElementById("anteprima-recensioni-grid");
+            if (!grid) return;
+            const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw1nVYm4hDgx5l7uiudZZxA-0sGM6sjDUXbb6C9cCRB4JoeplnJZHTeOg2y-npuRF4h/exec";
+
+            try {
+                const response = await fetch(SCRIPT_URL);
+                const data = await response.json();
+
+                if (data && data.length > 0) {
+                    grid.innerHTML = "";
+                    const ultimeTre = data.reverse().slice(0, 3);
+
+                    ultimeTre.forEach(rec => {
+                        const numStelle = parseInt(rec.voto) || 5;
+                        const stelleStr = "⭐".repeat(numStelle);
+                        let messaggioTesto = rec.messaggio || "";
+                        
+                        if (messaggioTesto.length > 130) {
+                            messaggioTesto = messaggioTesto.substring(0, 130) + "...";
+                        }
+
+                        const card = document.createElement("div");
+                        card.className = "glass-box p-6 rounded-xl border gold-border flex flex-col justify-between shadow-xl";
+                        card.innerHTML = `
+                            <div>
+                                <h3 class="font-serif italic text-lg text-white font-semibold">${rec.nome}</h3>
+                                <p class="text-gold my-1 text-sm">${stelleStr}</p>
+                                <p class="text-gray-300 font-light italic text-xs sm:text-sm mt-2 leading-relaxed">"${messaggioTesto}"</p>
+                            </div>
+                        `;
+                        grid.appendChild(card);
+                    });
+                } else {
+                    grid.innerHTML = `<p class="text-gray-400 text-center col-span-full">Ancora nessuna recensione. Sii il primo a scriverne una!</p>`;
+                }
+            } catch (err) {
+                grid.innerHTML = `<p class="text-gray-400 text-center col-span-full">Impossibile caricare le recensioni al momento.</p>`;
+            }
+        }
+
+        caricaAnteprimaHome();
+
+        function openReviewModal() {
+            document.getElementById('reviewModal').style.display = 'flex';
+        }
+        function closeReviewModal() {
+            document.getElementById('reviewModal').style.display = 'none';
+        }
+
+        document.getElementById("reviewFormModal").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const status = document.getElementById("formStatusModal");
+            status.style.display = "block";
+            status.textContent = "Invio in corso...";
+
+            const formData = {
+                nome: document.getElementById("nomeModal").value,
+                voto: document.getElementById("votoModal").value,
+                messaggio: document.getElementById("messaggioModal").value
+            };
+
+            const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw1nVYm4hDgx5l7uiudZZxA-0sGM6sjDUXbb6C9cCRB4JoeplnJZHTeOg2y-npuRF4h/exec";
+
+            try {
+                await fetch(SCRIPT_URL, {
+                    method: "POST",
+                    body: JSON.stringify(formData)
+                });
+                status.textContent = "Grazie! Recensione pubblicata con successo.";
+                document.getElementById("reviewFormModal").reset();
+                caricaAnteprimaHome();
+                setTimeout(() => {
+                    closeReviewModal();
+                    status.style.display = 'none';
+                }, 2000);
+            } catch (err) {
+                status.textContent = "Errore durante l'invio. Riprova.";
+            }
+        });
+
+        // Gestione per mettere in pausa gli altri video quando uno viene avviato
+        document.addEventListener('DOMContentLoaded', () => {
+            const allVideos = document.querySelectorAll('video');
+            allVideos.forEach(video => {
+                video.addEventListener('play', () => {
+                    allVideos.forEach(otherVideo => {
+                        if (otherVideo !== video) {
+                            otherVideo.pause();
+                        }
+                    });
+                });
+            });
+        });
+
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, observerOptions);
+        document.querySelectorAll('.reveal').forEach(section => observer.observe(section));
+
+        const gallery = document.getElementById('infiniteGallery');
+        let autoScroll = null;
+        function startAutoScroll() {
+            if (autoScroll) clearInterval(autoScroll);
+            autoScroll = setInterval(() => {
+                if (gallery.scrollLeft >= (gallery.scrollWidth / 2)) {
+                    gallery.scrollLeft = 0;
+                } else {
+                    gallery.scrollLeft += 1;
+                }
+            }, 30);
+        }
+        if(gallery) {
+            startAutoScroll();
+            gallery.addEventListener('touchstart', () => { if (autoScroll) clearInterval(autoScroll); });
+            gallery.addEventListener('mousedown', () => { if (autoScroll) clearInterval(autoScroll); });
+            gallery.addEventListener('touchend', () => { setTimeout(startAutoScroll, 3000); });
+            gallery.addEventListener('mouseup', () => { setTimeout(startAutoScroll, 3000); });
+        }
+
+        function openLightbox(imgSrc) {
+            if (autoScroll) clearInterval(autoScroll);
+            const modal = document.getElementById('lightboxModal');
+            document.getElementById('lightboxImg').src = imgSrc;
+            modal.style.display = 'flex';
+        }
+        function closeLightbox() {
+            document.getElementById('lightboxModal').style.display = 'none';
+            startAutoScroll();
+        }
+
+        function openVideoPopup(videoSrc) {
+            const modal = document.getElementById('videoModal');
+            const modalVideo = document.getElementById('modalVideo');
+            
+            // Ferma tutti gli altri video prima di aprire il pop-up
+            document.querySelectorAll('video').forEach(v => v.pause());
+
+            modalVideo.src = videoSrc;
+            modal.style.display = 'flex';
+            modalVideo.play();
+        }
+        function closeVideoPopup() {
+            const modal = document.getElementById('videoModal');
+            const modalVideo = document.getElementById('modalVideo');
+            modalVideo.pause();
+            modalVideo.src = '';
+            modal.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
