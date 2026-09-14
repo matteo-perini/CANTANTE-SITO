@@ -183,6 +183,63 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
+
+        /* --- STILI SPECIFICI PER LA SEZIONE COLLABORAZIONI CON DOPPIA FOTO INDIPENDENTE E 3D --- */
+        .collab-photo-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 480px;
+            height: 480px;
+            margin: 0 auto;
+            perspective: 1000px;
+        }
+
+        .collab-photo-main {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 330px;
+            height: 390px;
+            object-fit: cover;
+            border-radius: 16px;
+            border: 2px solid #ffea88;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8), 0 0 20px rgba(212, 175, 55, 0.4);
+            z-index: 1;
+            transition: transform 0.15s ease-out;
+            cursor: pointer;
+            transform-style: preserve-3d;
+        }
+
+        .collab-photo-secondary {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 250px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 16px;
+            border: 2px solid #d4af37;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8), 0 0 20px rgba(212, 175, 55, 0.4);
+            z-index: 2;
+            transition: transform 0.15s ease-out;
+            cursor: pointer;
+            transform-style: preserve-3d;
+        }
+
+        @media (max-width: 640px) {
+            .collab-photo-wrapper {
+                height: 400px;
+                max-width: 340px;
+            }
+            .collab-photo-main {
+                width: 250px;
+                height: 300px;
+            }
+            .collab-photo-secondary {
+                width: 190px;
+                height: 220px;
+            }
+        }
     </style>
 </head>
 <body class="bg-[#030303] text-gray-200 antialiased relative selection:bg-gold selection:text-black">
@@ -264,7 +321,7 @@
             </div>
         </section>
 
-        <!-- Sezione Biografia con stile Glossy (Aggiornata con Jesolo, Fonico, Insegnamento e Gruppi) -->
+        <!-- Sezione Biografia con stile Glossy -->
         <section id="biografia" class="py-14 sm:py-20 px-4 sm:px-6 max-w-6xl mx-auto reveal">
             <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
                 
@@ -299,7 +356,7 @@
             </div>
         </section>
 
-        <!-- Nuova Sezione: Servizi per Eventi & Hotel -->
+        <!-- Sezione Servizi per Eventi & Hotel -->
         <section id="servizi" class="py-14 sm:py-20 px-4 sm:px-6 max-w-6xl mx-auto border-t gold-border/40 reveal">
             <div class="text-center mb-10 sm:mb-14">
                 <span class="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-gold font-medium">Intrattenimento & Booking</span>
@@ -478,9 +535,11 @@
             </div>
         </section>
 
-        <!-- Sezione Collaborazioni -->
+        <!-- Sezione Collaborazioni (Aggiornata con Eleonora Biasco, Degmar Live Music, Doppia Foto Indipendente e 3D delicato) -->
         <section id="collaborazioni" class="py-14 sm:py-20 px-4 sm:px-6 max-w-6xl mx-auto border-t gold-border/40 reveal">
             <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
+                
+                <!-- Testo collaborazioni con virgola rimossa prima di "che spazia" -->
                 <div class="md:col-span-7 p-5 sm:p-8 md:p-10 glass-box rounded-xl relative shadow-xl order-2 md:order-1">
                     <div class="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-gold"></div>
                     <div class="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-gold"></div>
@@ -493,19 +552,27 @@
                             Collaborazioni d'Autore e Sinergie Musicali
                         </h2>
                         <p class="text-gray-300 font-light leading-relaxed text-[11px] sm:text-sm md:text-base">
-                            La musica è condivisione, contaminazione e ricerca di nuove emozioni sonore. Oltre al percorso solista e ai progetti live principali, Valeria Cosenza promuove attivamente collaborazioni artistiche di alto profilo con musicisti, strumentisti e DJ, progettando performance uniche e su misura per ogni tipo di evento, locale o palco prestigioso.
+                            La musica è condivisione, contaminazione e ricerca di nuove emozioni sonore. Accanto al percorso solista, Valeria Cosenza promuove attivamente collaborazioni artistiche di alto profilo con musicisti e strumentisti, progettando performance uniche e su misura per ogni tipo di palco.
                         </p>
                         <p class="text-gray-300 font-light leading-relaxed text-[11px] sm:text-sm md:text-base">
-                            Un esempio emblematico di questa sinergia è l'intesa artistica sul palco con la straordinaria violinista <strong>Eleonora Biasco</strong>: un connubio perfetto in cui la calda intensità della voce si fonde con la raffinatezza e la vibrante espressività del violino, dando vita a reinterpretazioni suggestive e cariche di pathos. Valeria è aperta a nuove collaborazioni con professionisti del settore per arricchire ogni performance con sonorità esclusive ed eleganti.
+                            Tra le intese artistiche più suggestive spicca quella con la violinista <strong>Eleonora Biasco</strong>: un connubio in cui la calda intensità della voce si fonde con la raffinatezza e la vibrante espressività degli archi. A questo si affianca la dinamica collaborazione con <strong>Degmar Live Music</strong> — progetto guidato da un eclettico cantante, chitarrista e bassista — che spazia dai travolgenti live show rock ai grandi classici della musica leggera italiana fino a intime situazioni acustiche.
+                        </p>
+                        <p class="text-gray-300 font-light leading-relaxed text-[11px] sm:text-sm md:text-base">
+                            Sempre aperta a nuove sinergie artistiche, contaminazioni musicali e progetti stimolanti con professionisti del settore.
                         </p>
                     </div>
                 </div>
 
-                <div class="md:col-span-5 pt-2 order-1 md:order-2 max-w-[220px] sm:max-w-xs md:max-w-none mx-auto w-full">
-                    <div class="relative aspect-square overflow-hidden rounded-2xl gold-border-fluo bg-neutral-900 shadow-2xl">
-                        <img src="foto/foto15.jpeg" alt="Valeria Cosenza e Eleonora Biasco" class="w-full h-full object-cover filter brightness-110 contrast-110">
+                <!-- Contenitore Doppia Foto con Movimento 3D Indipendente e Delicato -->
+                <div class="md:col-span-5 pt-2 order-1 md:order-2">
+                    <div class="collab-photo-wrapper" id="collabContainer">
+                        <!-- Foto principale (foto15) con movimento molto leggero -->
+                        <img src="foto/foto15.jpeg" alt="Valeria Cosenza Collaborazioni" class="collab-photo-main" id="photoMain">
+                        <!-- Seconda foto (foto16) con movimento molto leggero -->
+                        <img src="foto/foto16.jpeg" alt="Valeria e Degmar Live Music" class="collab-photo-secondary" id="photoSecondary">
                     </div>
                 </div>
+
             </div>
         </section>
 
@@ -873,6 +940,38 @@
             modalVideo.src = '';
             modal.style.display = 'none';
         }
+
+        /* --- SCRIPT EFFETTO 3D INDIPENDENTE MOLTO DELICATO PER LE DUE FOTO --- */
+        const collabContainer = document.getElementById('collabContainer');
+        const photoMain = document.getElementById('photoMain');
+        const photoSecondary = document.getElementById('photoSecondary');
+
+        collabContainer.addEventListener('mousemove', (e) => {
+            const rect = collabContainer.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            
+            // Valori alti (35 e 32) per un movimento impercettibile, fluido e morbidissimo
+            const rotateXMain = (-y / 35);
+            const rotateYMain = (x / 35);
+            photoMain.style.transform = `rotateX(${rotateXMain}deg) rotateY(${rotateYMain}deg) scale(1.005)`;
+
+            const rotateXSec = (y / 32);
+            const rotateYSec = (-x / 32);
+            photoSecondary.style.transform = `rotateX(${rotateXSec}deg) rotateY(${rotateYSec}deg) scale(1.005)`;
+        });
+
+        collabContainer.addEventListener('mouseleave', () => {
+            photoMain.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`;
+            photoMain.style.transition = 'transform 0.5s ease';
+            photoSecondary.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`;
+            photoSecondary.style.transition = 'transform 0.5s ease';
+        });
+
+        collabContainer.addEventListener('mouseenter', () => {
+            photoMain.style.transition = 'none';
+            photoSecondary.style.transition = 'none';
+        });
     </script>
 </body>
 </html>
