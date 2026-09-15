@@ -345,10 +345,10 @@
                             Un percorso tra palchi, teatri e grandi collaborazioni
                         </h2>
                         <p class="text-gray-300 font-light leading-relaxed text-[11px] sm:text-sm md:text-base">
-                            Con un percorso artistico iniziato all'età di diciassette anni accanto a un'orchestra di musica da ballo — fondamentale per apprendere l'interazione con il pubblico e la padronanza del palco —, Valeria Cosenza vanta una solida e versatile carriera come cantante di piano bar e vocalist. La sua formazione spazia dal teatro alla televisione, dove ha lavorato a lungo come corista per grandi produzioni e prestigiosi artisti del panorama nazionale e internazionale, tra cui Alexia, Paola e Chiara, Biagio Antonacci, Sister Sledge, Lionel Richie e Renato Zero.
+                            La carriera artistica di Valeria Cosenza comincia a diciassette anni nelle orchestre da ballo, palestra fondamentale per la presenza scenica. Nel corso degli anni si afferma come vocalist e corista di alto livello per grandi produzioni e artisti celebri come Alexia, Paola e Chiara, Biagio Antonacci, Sister Sledge, Lionel Richie e Renato Zero. Un momento di altissimo rilievo si registra nel 2015 all'Arena di Verona, dove calca il palco come corista per Brian May dei Queen.
                         </p>
                         <p class="text-gray-300 font-light leading-relaxed text-[11px] sm:text-sm md:text-base">
-                            Nel corso degli anni ha dato vita a diversi progetti musicali personali, dai Forever Eighty (repertorio acid jazz e funky) a "Valeria e le Acustiche Presenze" (quartetto acustico italiano). Tra le esperienze televisive più significative spiccano i tre anni consecutivi come corista a <em>Io Canto</em> su Canale 5, sotto la direzione del Maestro Luca Pitteri, accompagnando ospiti d'eccezione come Spagna, Al Bano e Michael Bublé. Accanto alla carriera concertistica e alla vocazione per l'insegnamento e la didattica vocale, attualmente collabora come ospite in vari gruppi che propongono musica anni '70, '80 e rock. Sul fronte live, presta la sua voce per l'intrattenimento musicale e l'animazione nei migliori alberghi di Jesolo, muovendosi in autonomia e avvalendosi di un fonico professionista dedicato per garantire una qualità acustica impeccabile.
+                            Ha dato vita a progetti personali come i <em>Forever Eighty</em> e il quartetto acustico <em>Valeria e le Acustiche Presenze</em>. Sul piccolo schermo ha brillato per tre anni consecutivi come corista a <em>Io Canto</em> (Canale 5) sotto la direzione del M° Luca Pitteri, affiancando ospiti come Spagna, Al Bano e Michael Bublé. Oggi, affiancando all'attività live la didattica vocale, si esibisce regolarmente nei migliori alberghi e locali di Jesolo con il supporto di un fonico dedicato, oltre a collaborare attivamente in progetti rock e pop.
                         </p>
                     </div>
                 </div>
@@ -535,11 +535,11 @@
             </div>
         </section>
 
-        <!-- Sezione Collaborazioni (Aggiornata con Eleonora Biasco, Degmar Live Music, Doppia Foto Indipendente e 3D delicato) -->
+        <!-- Sezione Collaborazioni -->
         <section id="collaborazioni" class="py-14 sm:py-20 px-4 sm:px-6 max-w-6xl mx-auto border-t gold-border/40 reveal">
             <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
                 
-                <!-- Testo collaborazioni con virgola rimossa prima di "che spazia" -->
+                <!-- Testo collaborazioni -->
                 <div class="md:col-span-7 p-5 sm:p-8 md:p-10 glass-box rounded-xl relative shadow-xl order-2 md:order-1">
                     <div class="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-gold"></div>
                     <div class="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-gold"></div>
@@ -566,9 +566,7 @@
                 <!-- Contenitore Doppia Foto con Movimento 3D Indipendente e Delicato -->
                 <div class="md:col-span-5 pt-2 order-1 md:order-2">
                     <div class="collab-photo-wrapper" id="collabContainer">
-                        <!-- Foto principale (foto15) con movimento molto leggero -->
                         <img src="foto/foto15.jpeg" alt="Valeria Cosenza Collaborazioni" class="collab-photo-main" id="photoMain">
-                        <!-- Seconda foto (foto16) con movimento molto leggero -->
                         <img src="foto/foto16.jpeg" alt="Valeria e Degmar Live Music" class="collab-photo-secondary" id="photoSecondary">
                     </div>
                 </div>
@@ -619,7 +617,7 @@
             </div>
         </section>
 
-        <!-- Sezione Recensioni su Index (Ultime 3 + Due Pulsanti) -->
+        <!-- Sezione Recensioni su Index -->
         <section id="recensioni" class="py-14 sm:py-20 px-4 sm:px-6 max-w-6xl mx-auto border-t gold-border/40 reveal">
             <div class="text-center mb-8 sm:mb-12">
                 <span class="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-gold font-medium">Feedback & Opinioni</span>
@@ -681,7 +679,7 @@
         </div>
     </div>
 
-    <!-- Modal Pop-up Video (Reel centrato ingrandito e senza pulsante fullscreen) -->
+    <!-- Modal Pop-up Video -->
     <div id="videoModal" class="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-md hidden items-center justify-center p-4">
         <div class="relative w-full max-w-[320px] sm:max-w-[380px] glass-box border-2 gold-border rounded-2xl p-3 shadow-2xl">
             <button onclick="closeVideoPopup()" class="absolute top-2 right-2 bg-gold text-black px-3 py-1 rounded-full font-bold text-xs flex items-center gap-1 shadow-lg z-50 btn-animated">
@@ -951,7 +949,6 @@
             const x = e.clientX - rect.left - rect.width / 2;
             const y = e.clientY - rect.top - rect.height / 2;
             
-            // Valori alti (35 e 32) per un movimento impercettibile, fluido e morbidissimo
             const rotateXMain = (-y / 35);
             const rotateYMain = (x / 35);
             photoMain.style.transform = `rotateX(${rotateXMain}deg) rotateY(${rotateYMain}deg) scale(1.005)`;
